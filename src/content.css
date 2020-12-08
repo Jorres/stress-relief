@@ -1,0 +1,62 @@
+.content {
+    grid-column: 7 / 25;
+    grid-row: 2 / 30;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.hi-block {
+    margin: 10px;
+
+    width: 30%;
+    width: 90%; 
+    height: 15vh;
+    background-color: #ddeef6;
+    border-radius: 20px;
+
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+
+.task-holder, .task-adder {
+    flex-wrap: wrap;
+    margin: 10px;
+
+    display: flex;
+}
+
+.task-block {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    height: 8vh;
+    flex-grow: 0.4;
+    margin: 10px;
+    padding: 10px;
+    transition: 0.2s linear 0s;
+}
+
+.task-block:hover {
+   background-color: lightgreen !important; 
+}
+
+.word-cloud-wrapper {
+    width: 90%;    
+    height: 50%;
+}
+
+.word-cloud-image {
+    width: 100%;
+    object-fit: cover;
+}
+
+.task-add {
+    transition: 0.2s linear 0s;
+    background-color: #ddeef6;
+}
+
+.task-add:hover {
+    background-color: #a5d1e7;
+}

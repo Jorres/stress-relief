@@ -1,0 +1,29 @@
+.profile-wrapper {
+    grid-column: 25 / 31;
+    grid-row: 1 / 31;
+
+    background-color: white;
+    border-radius: 0px 20px 20px 0px;
+}
+
+.profile {
+    margin: 20px 20px 20px 0px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile__avatar-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    flex-grow: 0.3;
+    width: 80%; 
+}
+
+.profile__avatar-picture {
+    width: 100%;
+}
+

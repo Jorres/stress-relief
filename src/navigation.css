@@ -1,0 +1,45 @@
+.navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    grid-column: 2 / 6;
+    grid-row: 2 / 30;
+    border: 2px solid black;
+
+    background-color: #a5d1e7;
+
+    border-radius: 20px;
+}
+
+.nav-buttons-container {
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    width: 100%;
+}
+
+.nav-button {
+    width: 60%; 
+    flex-grow: 0.1;
+    margin: 15px;
+    background-color: transparent;
+
+    transition: 0.2s linear 0s;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    text-align: center;
+    font-size: 1rem;
+}
+
+.nav-button:hover {
+    background-color: #b9dcec;
+}
