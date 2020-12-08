@@ -9,7 +9,8 @@
   <img src="https://img.shields.io/github/stars/Jorres/stress-relief?color=%23FFCC00&logo=GitHub%20Sponsors&logoColor=%23FFCC00&style=for-the-badge" alt="stars">
   <img src="https://img.shields.io/github/issues/Jorres/stress-relief?color=%239FE2BF&style=for-the-badge" alt="stars"> 
 </div>
-
+> One in Four Older Adults Report Anxiety or Depression Amid the COVID-19 Pandemic [Source](https://www.kff.org/medicare/issue-brief/one-in-four-older-adults-report-anxiety-or-depression-amid-the-covid-19-pandemic/)
+[Project Name] is our way of addressing that. Imagine a mood tracker, anxiety helper, and mood-boosting journal, all rolled into one.
 
 ## 💗 Try Now
 Head over to [[link here]] and make your happiness
