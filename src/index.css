@@ -18,8 +18,8 @@ body {
     background-color: #a5d1e7;
 
     display: grid;
-    grid-template-columns: 1fr 10fr 1fr;
-    grid-template-rows: 1fr 10fr 1fr;
+    grid-template-columns: 1fr 20fr 1fr;
+    grid-template-rows: 1fr 20fr 1fr;
     grid-template-areas: 
         " . . . "
         " . c . "
@@ -42,16 +42,17 @@ body {
     color: gray;
 }
 
+.modal-window, .main {
+    border-radius: 20px;
+}
+
 .main {
-    background-color: #f9f9ff;
+    position: relative;
     grid-area: c;
+    background-color: #f9f9ff;
     display: grid;
     grid-template-columns: repeat(30, 1fr);
     grid-template-rows: repeat(30, 1fr);
-
-    border-radius: 20px;
-
-    border: 2px solid black;
 }
 
 .input-general {
@@ -106,4 +107,29 @@ p {
 .about-text {
     font-size: 1.2rem;
     margin: 10px;
+}
+
+.modal-window {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    background-color: white;
+    transition: 0.2s linear 0s;
+    box-sizing: border-box;
+    padding: 20px;
+
+    width: 60%;
+    height: 60%;
+    top: 20%;
+    left: 20%;
+}
+
+.modal-shadow {
+    position: absolute;
+    background-color: gray;
+    opacity: 0.5;
+    display: none;
+    z-index: 2;
+    top: 0px;
+    left: 0px;
 }
