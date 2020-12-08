@@ -124,6 +124,15 @@ const initNavigation = () => {
     });
 };
 
+const initModalWindow = () => {
+    const modalWindow = refresh(".modal-window");
+    appendElem(modalWindow, "p", ['slight-header'], "How was your day?");
+    const submitNote = appendElem(modalWindow, "div", ['action-button'], "We'll take your note from there!");
+    submitNote.addEventListener("click", () => {
+        hideModalWindow();  
+    });
+};
+
 const initProfile = (username) => {
     const profile = select(".profile");
     profile.innerHTML = "";
@@ -135,6 +144,16 @@ const initProfile = (username) => {
     pictureWrapper.appendChild(picture);
     profile.appendChild(pictureWrapper);
     appendElem(profile, "p", ['profile__username'], username);
+
+    const addMoodForm = appendElem(profile, "div", ['profile__add-mood']);
+    appendElem(addMoodForm, "p", ['slight-header'], "Add note");
+    const addMoodImage = appendElem(addMoodForm, "img", ['profile__add-mood-image']);
+    addMoodImage.setAttribute("src", "../img/calendar.png");
+
+    addMoodForm.addEventListener("click", () => {
+        showModalWindow();
+        initModalWindow();
+    });
 };
 
 const register = (name, age) => {
@@ -192,6 +211,7 @@ const init = () => {
         localStorage.setItem("userAge", null); 
         localStorage.setItem("test-tasks", JSON.stringify(tasks)); 
         initWelcomePage();
+        initProfile("My name");
     });
 };
 
