@@ -1,22 +1,15 @@
 
 <h1 align="center">
   <br>
-  <img src="https://i.imgur.com/xwHr8mK.png" alt="Landing page
+  <img src="https://i.imgur.com/xwHr8mK.png" alt="Landing page">
 </h1>
-<div align="center">
-<img src="https://img.shields.io/github/license/Jorres/stress-relief?color=%23CC99FF&style=for-the-badge" alt="license">
-<img src="https://img.shields.io/github/stars/Jorres/stress-relief?color=%23FFCC00&logo=GitHub%20Sponsors&logoColor=%23FFCC00&style=for-the-badge" alt="stars
-</div>
-<br>
 
-<p align="center">
-  <a href="#try-now">Try Now</a> •
-  <a href="#demo">Demo</a> •
-  <a href="#features">Features</a> •
-  <a href="#usage">usage</a> •
-  <a href="#credits">credits</a> •
-  <a href="#license">License</a>
-</p>
+<div align="center">
+  <img src="https://img.shields.io/github/license/Jorres/stress-relief?color=%23CC99FF&style=for-the-badge" alt="license">
+  <img src="https://img.shields.io/github/stars/Jorres/stress-relief?color=%23FFCC00&logo=GitHub%20Sponsors&logoColor=%23FFCC00&style=for-the-badge" alt="stars">
+  <img src="https://img.shields.io/github/issues/Jorres/stress-relief?color=%239FE2BF&style=for-the-badge" alt="stars"> 
+</div>
+
 
 ## 💗 Try Now
 Head over to [[link here]] and make your happiness
