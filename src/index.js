@@ -27,7 +27,7 @@ const renderTasks = (taskHolder) => {
         const icon = appendElem(quoteWrapper, "img", ['task-img']);
         let num = getRandomInt(6) + 1;
 
-        icon.src = "../img/icons/icon" + num + ".png";
+        icon.src = "img/icons/icon" + num + ".png";
 
         task.style.backgroundColor = backgroundColors[i % backgroundColors.length];
     });
@@ -42,7 +42,7 @@ const initHome = () => {
     appendElem(hiBlock, "p", ["gray-text"], "Don't worry, you'll get through it!");
     appendElem(hiBlock, "p", ["gray-text"], "We prepared you some tips on how to stay mentally healthy!");
     const umbrellaCat = appendElem(hiBlock, "img", ['umbrella-cat']);
-    umbrellaCat.src = "../img/cat-umbrella.png";
+    umbrellaCat.src = "img/cat-umbrella.png";
 
 
     const taskHolder = createElem("div", ['task-holder']);
@@ -65,6 +65,24 @@ const initHome = () => {
 const initGraph = () => {
     const content = clearContent();
     appendElem(content, "p", ['slight-header'], "Graph of emotions");
+    const graphHolder = appendElem(content, "div", ['graph-holder']);
+
+    const options = {
+        chart: {
+            type: 'line'
+        },
+        series: [{
+            name: 'sales',
+            data: [30,40,35,50,49,60,70,91,125]
+        }],
+        xaxis: {
+            categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
+        }
+    }
+
+    const chart = new ApexCharts(graphHolder, options);
+
+chart.render();
     let diaryEntries = JSON.parse(localStorage.getItem("diary-entries"));
     console.log(diaryEntries);
 };
@@ -142,7 +160,7 @@ const initModalWindow = () => {
     ['bad', 'neutral', 'good'].forEach(name => {
         const emoteWrapper = appendElem(emoticonsHolder, "div", ['emoticon']);
         const emoteImage = appendElem(emoteWrapper, "img", ['emoticon-image', 'emoticon-' + name]);
-        emoteImage.src = "../img/emotions/" + name + ".png";
+        emoteImage.src = "img/emotions/" + name + ".png";
         emoteWrapper.addEventListener("click", () => {
             if (selected == emoteWrapper) {
                 emoteWrapper.classList.remove("selected-emoticon");
@@ -168,7 +186,12 @@ const initModalWindow = () => {
 
     const submitContainer = appendElem(modalWindow, "div", ['submit-container']);
     appendElem(submitContainer, "p", ['gray-text'], "We'll take your note from there!");
+    const discard = appendElem(submitContainer, "div", ['action-button'], "Discard");
     const submitNote = appendElem(submitContainer, "div", ['action-button'], "Save");
+
+    discard.addEventListener("click", () => {
+        hideModalWindow();  
+    });
 
     submitNote.addEventListener("click", () => {
         let good = true;
@@ -201,7 +224,7 @@ const initProfile = (username) => {
     appendElem(profile, "p", ['profile__title'], "My profile");    
     const pictureWrapper = createElem("div", ['profile__avatar-wrapper']);
     const picture = createElem("img", ['profile__avatar-picture']);
-    picture.setAttribute('src', '../img/' + userGender + '.png');
+    picture.setAttribute('src', 'img/' + userGender + '.png');
     pictureWrapper.appendChild(picture);
     profile.appendChild(pictureWrapper);
     appendElem(profile, "p", ['profile__username'], username);
@@ -210,7 +233,7 @@ const initProfile = (username) => {
         const addMoodForm = appendElem(profile, "div", ['profile__add-mood']);
         appendElem(addMoodForm, "p", ['slight-header'], "Add note");
         const addMoodImage = appendElem(addMoodForm, "img", ['profile__add-mood-image']);
-        addMoodImage.setAttribute("src", "../img/calendar.png");
+        addMoodImage.setAttribute("src", "img/calendar.png");
 
         addMoodForm.addEventListener("click", () => {
             showModalWindow();
