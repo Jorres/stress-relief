@@ -1,0 +1,97 @@
+.modal-window {
+    border-radius: 20px;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    background-color: white;
+    transition: 0.2s linear 0s;
+    box-sizing: border-box;
+    padding: 20px 5%;
+
+    width: 60%;
+    height: 70%;
+    top: 15%;
+    left: 20%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.modal-shadow {
+    position: absolute;
+    background-color: gray;
+    opacity: 0.5;
+    display: none;
+    z-index: 2;
+    top: 0px;
+    left: 0px;
+}
+
+.emoticons-holder {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    flex-grow: 0.3;
+    border-radius: 30px;
+}
+
+.emoticon {
+    height: 10vh;
+    border-radius: 1000px;
+}
+
+.emoticon-image {
+    height: 100%;
+    border-radius: 1000px;
+    transition: 0.2s linear 0s;
+}
+
+.selected-emoticon .emoticon-good {
+    box-shadow: 0 14px 28px green, 0 10px 10px green;
+}
+
+.emoticon-good:hover {
+    box-shadow: 0 14px 28px green, 0 10px 10px green;
+}
+
+.selected-emoticon .emoticon-neutral {
+    box-shadow: 0 14px 28px yellow, 0 10px 10px yellow;
+}
+
+.emoticon-neutral:hover {
+    box-shadow: 0 14px 28px yellow, 0 10px 10px yellow;
+}
+
+.selected-emoticon .emoticon-bad {
+    box-shadow: 0 14px 28px red, 0 10px 10px red;
+}
+
+.emoticon-bad:hover {
+    box-shadow: 0 14px 28px red, 0 10px 10px red;
+}
+
+.on-your-mind {
+    margin-top: 20px;
+}
+
+.note-area {
+    resize: none; 
+    height: 17vh;
+    width: 100%;
+    font-size: 30px;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.submit-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.datepicker {
+    border-radius: 7px; 
+}

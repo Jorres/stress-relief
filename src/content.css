@@ -8,6 +8,7 @@
 }
 
 .hi-block {
+    position: relative;
     margin: 10px;
 
     width: 30%;
@@ -20,6 +21,15 @@
     box-sizing: border-box;
 }
 
+.umbrella-cat {
+    position: absolute;    
+    right: 0px;
+    bottom: 0px;
+    height: 200px;
+    width: 230px;
+    opacity: 0.8;
+}
+
 .task-holder, .task-adder {
     flex-wrap: wrap;
     margin: 10px;
@@ -28,6 +38,7 @@
 }
 
 .task-block {
+    position: relative;
     display: flex;
     flex-direction: column;
     border-radius: 20px;
@@ -36,10 +47,7 @@
     margin: 10px;
     padding: 10px;
     transition: 0.2s linear 0s;
-}
-
-.task-block:hover {
-   background-color: lightgreen !important; 
+    /* min-width: 400px; */
 }
 
 .word-cloud-wrapper {
@@ -55,8 +63,20 @@
 .task-add {
     transition: 0.2s linear 0s;
     background-color: #ddeef6;
+    display: flex;
 }
 
 .task-add:hover {
     background-color: #a5d1e7;
+}
+
+.task-name-wrapper {
+    width: 250px;
+}
+
+.task-img {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    height: 60px;
 }
