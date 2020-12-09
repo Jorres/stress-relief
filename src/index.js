@@ -5,13 +5,13 @@ const clearContent = () => {
 };
 
 const getTasks = () => {
-    return JSON.parse(localStorage.getItem("test-tasks"));
+    return JSON.parse(localStorage.getItem("quotes"));
 };
 
 const updateTasks = (taskHolder, task) => {
     const tasks = getTasks();    
     tasks.push(task);
-    localStorage.setItem("test-tasks", JSON.stringify(tasks));
+    localStorage.setItem("quotes", JSON.stringify(tasks));
     renderTasks(taskHolder);
 };
 
@@ -22,13 +22,14 @@ const renderTasks = (taskHolder) => {
     taskHolder.innerHTML = "";
     getTasks().forEach((taskData, i) => {
         const task = appendElem(taskHolder, "div", ['task-block']);
-        appendElem(task, "p", ['task-name'], taskData.name);
-        appendElem(task, "p", ['task-progress'], taskData.progress);
+        const quoteWrapper = appendElem(task, "div", ['task-name-wrapper']);
+        appendElem(quoteWrapper, "span", ['task-name'], taskData.name);
+        const icon = appendElem(quoteWrapper, "img", ['task-img']);
+        let num = getRandomInt(6) + 1;
+
+        icon.src = "../img/icons/icon" + num + ".png";
+
         task.style.backgroundColor = backgroundColors[i % backgroundColors.length];
-        task.addEventListener("click", () => {
-            task.style.backgroundColor = "green"; 
-            task.style.order = ++lastOrder;
-        })
     });
 };
 
@@ -38,8 +39,11 @@ const initHome = () => {
     appendElem(content, "p", [], "Tuesday 08 December 2020");
     const hiBlock = appendElem(content, "div", ["hi-block"]);
     appendElem(hiBlock, "p", ["slight-header"], "Hi, " + localStorage.getItem("userName"));
-    appendElem(hiBlock, "p", ["gray-text"], "Plan your days to be more productive");
-    appendElem(hiBlock, "p", ["gray-text"], "We created some tasks for you, have a look!");
+    appendElem(hiBlock, "p", ["gray-text"], "Don't worry, you'll get through it!");
+    appendElem(hiBlock, "p", ["gray-text"], "We prepared you some tips on how to stay mentally healthy!");
+    const umbrellaCat = appendElem(hiBlock, "img", ['umbrella-cat']);
+    umbrellaCat.src = "../img/cat-umbrella.png";
+
 
     const taskHolder = createElem("div", ['task-holder']);
     renderTasks(taskHolder);
@@ -47,43 +51,42 @@ const initHome = () => {
 
     const taskAdder = appendElem(content, "div", ['task-adder']);
     const addTask = appendElem(taskAdder, "div", ['task-block', 'task-add']);
-    appendElem(addTask, "p", ['task-prompt'], "Give your new task a name!");
+    appendElem(addTask, "p", ['task-prompt'], "Something inspirational?");
     const taskNameInput = appendElem(addTask, "input", ['task-name-input']);
-    const addTaskButton = appendElem(addTask, "div", ['action-button'], "Create new task!");
+    const addTaskButton = appendElem(addTask, "div", ['action-button'], "Add new thought");
     addTaskButton.addEventListener("click", () => {
         let name = taskNameInput.value;
         updateTasks(taskHolder, {
             name: name,
-            progress: "none yet"
         });
     });
 };
 
 const initGraph = () => {
     const content = clearContent();
+    appendElem(content, "p", ['slight-header'], "Graph of emotions");
+    let diaryEntries = JSON.parse(localStorage.getItem("diary-entries"));
+    console.log(diaryEntries);
 };
 
-const initWorldCloud = () => {
-    localStorage.setItem("words", "");
-
+const initWordCloud = () => {
+    let wordsData = localStorage.getItem("words");
     const content = clearContent();
     appendElem(content, "p", ['slight-header'], "Word Cloud");
-    appendElem(content, "p", ['gray-text'], "Enter a new word for your word cloud!");
-    const wordInput = appendElem(content, "input", ['input-general']);
-    const wordButton = appendElem(content, "div", ['action-button'], "Add a word!");
-    wordButton.addEventListener("click", () => {
-        updateWordCloud(wordInput.value);
-        wordInput.value = "";
-        console.log(localStorage.getItem("words"));
-    });
 
-    const generateButton = appendElem(content, "div", ['action-button'], "Generate cloud!");
+    if (!wordsData) {
+        wordsData = "No data yet!";
+    }
+    const pleaseWait = appendElem(content, "p", ['gray-text'], "Generating your word cloud, please wait...");
+
     const wordCloudWrapper = appendElem(content, "div", ['word-cloud-wrapper']);
     const wordCloudImage = appendElem(wordCloudWrapper, "img", ['word-cloud-image'], "");
 
-    generateButton.addEventListener("click", () => {
-        getPicture(wordCloudWrapper, wordCloudImage);
-    });
+    getPicture(wordCloudWrapper, wordsData)
+        .then(result => {
+            wordCloudImage.src = result;
+            pleaseWait.innerHTML = "";
+        });
 };
 
 const initTest = () => {
@@ -112,9 +115,9 @@ const initAbout = () => {
 };
 
 const initNavigation = () => {
-    const buttons = ['home', 'graph', 'world-cloud', 'test', 'about'];
-    const buttonTexts = ['Home', 'Graph', 'World Cloud', 'Test', 'About'];
-    const initers = [initHome, initGraph, initWorldCloud, initTest, initAbout];
+    const buttons = ['home', 'graph', 'word-cloud', 'test', 'about'];
+    const buttonTexts = ['Home', 'Graph', 'Word Cloud', 'Test', 'About'];
+    const initers = [initHome, initGraph, initWordCloud, initTest, initAbout];
     const buttonsContainer = select(".nav-buttons-container");    
 
     buttons.forEach((button, i) => {
@@ -124,41 +127,102 @@ const initNavigation = () => {
     });
 };
 
+const processNoteData = (badGoodNeutral, noteText, dateString) => {
+    updateWordCloud(noteText);
+    updateDiaryEntry(badGoodNeutral, dateString);
+};
+
 const initModalWindow = () => {
     const modalWindow = refresh(".modal-window");
     appendElem(modalWindow, "p", ['slight-header'], "How was your day?");
-    const submitNote = appendElem(modalWindow, "div", ['action-button'], "We'll take your note from there!");
+    const emoticonsHolder = appendElem(modalWindow, "div", ['emoticons-holder']);
+
+    let selected = null;
+    let selectedValue = null;
+    ['bad', 'neutral', 'good'].forEach(name => {
+        const emoteWrapper = appendElem(emoticonsHolder, "div", ['emoticon']);
+        const emoteImage = appendElem(emoteWrapper, "img", ['emoticon-image', 'emoticon-' + name]);
+        emoteImage.src = "../img/emotions/" + name + ".png";
+        emoteWrapper.addEventListener("click", () => {
+            if (selected == emoteWrapper) {
+                emoteWrapper.classList.remove("selected-emoticon");
+                selected = null;
+            } else {
+                if (selected) {
+                    selected.classList.remove("selected-emoticon"); 
+                }
+                emoteWrapper.classList.add("selected-emoticon");
+                selected = emoteWrapper;
+                selectedValue = name;
+            }
+        });
+    });
+
+    appendElem(modalWindow, "p", ['slight-header', "on-your-mind"], "Write about your day");
+    appendElem(modalWindow, "p", ['gray-text'], "You can create word cloud out of these notes later.");
+
+    const noteArea = appendElem(modalWindow, "textarea", ["note-area"]);
+    const calendar = appendElem(modalWindow, "input", ["datepicker"]);
+    calendar.setAttribute("type", "date");
+    console.log(calendar.value);
+
+    const submitContainer = appendElem(modalWindow, "div", ['submit-container']);
+    appendElem(submitContainer, "p", ['gray-text'], "We'll take your note from there!");
+    const submitNote = appendElem(submitContainer, "div", ['action-button'], "Save");
+
     submitNote.addEventListener("click", () => {
-        hideModalWindow();  
+        let good = true;
+        if (calendar.value == "") {
+            pulseRed(calendar);    
+            good = false;
+        }
+
+        if (selected == null) {
+            pulseRed(emoticonsHolder);    
+            good = false;
+        }
+
+        if (good) {
+            processNoteData(selectedValue, noteArea.value, calendar.value);
+            hideModalWindow();  
+        }
     });
 };
 
 const initProfile = (username) => {
+    let userGender = localStorage.getItem("userGender");
+    if (!userGender) {
+        userGender = "man";
+    }
+
     const profile = select(".profile");
     profile.innerHTML = "";
 
     appendElem(profile, "p", ['profile__title'], "My profile");    
     const pictureWrapper = createElem("div", ['profile__avatar-wrapper']);
     const picture = createElem("img", ['profile__avatar-picture']);
-    picture.setAttribute('src', '../img/circle-avatar.png');
+    picture.setAttribute('src', '../img/' + userGender + '.png');
     pictureWrapper.appendChild(picture);
     profile.appendChild(pictureWrapper);
     appendElem(profile, "p", ['profile__username'], username);
 
-    const addMoodForm = appendElem(profile, "div", ['profile__add-mood']);
-    appendElem(addMoodForm, "p", ['slight-header'], "Add note");
-    const addMoodImage = appendElem(addMoodForm, "img", ['profile__add-mood-image']);
-    addMoodImage.setAttribute("src", "../img/calendar.png");
+    if (username !== "My name") {
+        const addMoodForm = appendElem(profile, "div", ['profile__add-mood']);
+        appendElem(addMoodForm, "p", ['slight-header'], "Add note");
+        const addMoodImage = appendElem(addMoodForm, "img", ['profile__add-mood-image']);
+        addMoodImage.setAttribute("src", "../img/calendar.png");
 
-    addMoodForm.addEventListener("click", () => {
-        showModalWindow();
-        initModalWindow();
-    });
+        addMoodForm.addEventListener("click", () => {
+            showModalWindow();
+            initModalWindow();
+        });
+    }
 };
 
 const register = (name, age) => {
     localStorage.setItem("userName", name);
     localStorage.setItem("userAge", age);
+    localStorage.setItem("userGender", select(".radio-gender:checked").value);
     initNavigation();
     initHome();
     initProfile(name);
@@ -176,42 +240,57 @@ const initWelcomePage = () => {
     appendElem(content, "p", [], "How old are you, dear?");
     const ageInput = appendElem(content, "input", ['input-general'], "");
 
+    const radioWrapper = appendElem(content, "div", ['gender-wrapper']);
+    ['man', 'woman'].forEach(gender => {
+        const label = appendElem(radioWrapper, "label", ['container'], gender);
+        const input = appendElem(label, "input", ["radio-gender"]);
+        input.type = "radio";
+        input.name = "gender";
+        input.value = gender;
+        appendElem(label, "span", ["checkmark"]);
+    });
+
     const registerButton = appendElem(content, "div", ['action-button'], "Let's get going!");
     registerButton.addEventListener("click", () => {
         register(nameInput.value, ageInput.value);
-    })
+    });
+};
+
+const cleanLocalStorage = () => {
+    let nullables = ["userName", "userAge", "userGender", "words", "quotes"];
+    nullables.forEach(propertyName => {
+        localStorage.setItem(propertyName, "");  
+    });
+    localStorage.setItem("diary-entries", "[]"); 
 };
 
 const init = () => {
+    let quotes = [{
+        name: "Tough times never last, but tough people do!",
+    }, {
+        name: "The best way out is always through",
+    }, {
+        name: "You, yourself, as much as anybody in the entire universe, deserve your love and affection",
+    }];
+
+    cleanLocalStorage();
+    localStorage.setItem("quotes", JSON.stringify(quotes));
+
     let userName = localStorage.getItem('userName');
-    if (!userName) {
-        initProfile("Who are you?");
-        initWelcomePage();
-    } else {
+    if (userName) {
         initNavigation();
         initProfile(userName);
         initHome();
+    } else {
+        initProfile("My name");
+        initWelcomePage();
     }
-    let tasks = [{
-        name: "Steps",
-        progress: "80%",
-    }, {
-        name: "Healthy diet",
-        progress: "2 out of 3 meals",
-    }, {
-        name: "Jogging",
-        progress: "2km more today!",
-    }];
-
-    localStorage.setItem("test-tasks", JSON.stringify(tasks));
 
     document.querySelector(".logout-wrapper").addEventListener("click", () => {
-        localStorage.setItem("userName", null); 
-        localStorage.setItem("words", null); 
-        localStorage.setItem("userAge", null); 
-        localStorage.setItem("test-tasks", JSON.stringify(tasks)); 
-        initWelcomePage();
+        cleanLocalStorage();
+        localStorage.setItem("quotes", JSON.stringify(quotes));
         initProfile("My name");
+        initWelcomePage();
     });
 };
 

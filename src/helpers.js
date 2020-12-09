@@ -1,3 +1,7 @@
+const getRandomInt = (max) => {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
 const select = (selector) => {
     return document.querySelector(selector);
 }
@@ -37,4 +41,18 @@ const hideModalWindow = () => {
     modalWindow.style.zIndex = -1;
     modalWindow.style.opacity = 0;
     modalShadow.style.display = "none";
+};
+
+const pulseRed = (elem) => {
+    elem.style.animation = 'pulseRed 0.4s';
+    setTimeout(() => {
+        elem.style.animation = 'none';
+    }, 400);
+};
+
+const updateDiaryEntry = (note, date) => {
+    let obj = {note, date}; 
+    let curData = JSON.parse(localStorage.getItem("diary-entries"));
+    curData.push(obj);
+    localStorage.setItem("diary-entries", JSON.stringify(curData));
 };
