@@ -50,8 +50,8 @@ const pulseRed = (elem) => {
     }, 400);
 };
 
-const updateDiaryEntry = (note, date) => {
-    let obj = {note, date}; 
+const updateDiaryEntry = (mood, date) => {
+    let obj = {mood, date}; 
     let curData = JSON.parse(localStorage.getItem("diary-entries"));
     curData.push(obj);
     localStorage.setItem("diary-entries", JSON.stringify(curData));

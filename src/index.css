@@ -115,6 +115,19 @@ p {
     flex-grow: 0.4;
 }
 
+.welcome-banner-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30%;
+    overflow: hidden;
+}
+
+.welcome-banner {
+   height: 140%; 
+   border-radius: 20px;
+}
+
 @keyframes pulseRed {
     0% {
         background-color: white;

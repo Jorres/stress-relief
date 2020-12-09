@@ -62,28 +62,91 @@ const initHome = () => {
     });
 };
 
+const cmp = (a, b) => {
+    return Math.abs(a - b) < 1e-5;
+};
+
 const initGraph = () => {
     const content = clearContent();
     appendElem(content, "p", ['slight-header'], "Graph of emotions");
     const graphHolder = appendElem(content, "div", ['graph-holder']);
 
-    const options = {
+    let diaryEntries = JSON.parse(localStorage.getItem("diary-entries"));
+    console.log(diaryEntries);
+    const graphData = {
         chart: {
-            type: 'line'
+            type: 'area',
+            colors: ["#e0b389"],
+            toolbar: {
+                show: false
+            }
         },
-        series: [{
-            name: 'sales',
-            data: [30,40,35,50,49,60,70,91,125]
-        }],
-        xaxis: {
-            categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
+        theme: {
+            palette: 'palette3',
+        },
+        series: [],
+        xaxis: { 
+            categories : [] 
+        },
+        yaxis: {
+            labels: {
+                formatter: function (value) {
+                    console.log(value);
+                    if (cmp(value, 3)) {
+                        return "good  ";
+                    }
+                    if (cmp(value, 2)) {
+                        return "neutral  ";
+                    }
+                    if (cmp(value, 1)) {
+                        return "bad  ";
+                    }
+                    return "";
+                }
+            }
+        },
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.7,
+                opacityTo: 0.9,
+                stops: [0, 90, 100]
+            }
+        },
+        stroke: {
+            curve: 'smooth',
         }
     }
 
-    const chart = new ApexCharts(graphHolder, options);
+    const seriesObj = {
+        name: 'mood',
+        data: [],
+    }
 
-chart.render();
-    let diaryEntries = JSON.parse(localStorage.getItem("diary-entries"));
+    const moodMap = {
+        'good': 3,
+        'neutral': 2,
+        'bad': 1
+    };
+
+    let sortedDiaryEntries = diaryEntries.sort((a, b) => {
+        let da = new Date(a.date);    
+        let db = new Date(b.date);    
+        return da.getTime() < db.getTime();
+    });
+
+    sortedDiaryEntries.forEach(entry => {
+        seriesObj.data.push(moodMap[entry.mood]);
+        graphData.xaxis.categories.push(entry.date);
+    });
+
+    graphData.series.push(seriesObj);
+
+    const chart = new ApexCharts(graphHolder, graphData);
+
+    chart.render();
+
     console.log(diaryEntries);
 };
 
@@ -257,6 +320,10 @@ const initWelcomePage = () => {
     const buttonsContainer = select(".nav-buttons-container");    
     buttonsContainer.innerHTML = "";
 
+    // const bannerWrapper = appendElem(content, "div", ['welcome-banner-wrapper']);
+    // const banner = appendElem(bannerWrapper, "img", ['welcome-banner']);
+    // banner.src = "img/pinegirl.png";
+
     appendElem(content, "p", ['slight-header'], "Greetings! Please, introduce yourself");
     appendElem(content, "p", [], "What is your name?");
     const nameInput = appendElem(content, "input", ['input-general'], "");
@@ -300,14 +367,22 @@ const init = () => {
     localStorage.setItem("quotes", JSON.stringify(quotes));
 
     let userName = localStorage.getItem('userName');
-    if (userName) {
+    // if (userName) {
         initNavigation();
-        initProfile(userName);
-        initHome();
-    } else {
-        initProfile("My name");
-        initWelcomePage();
-    }
+        initProfile("1");
+    localStorage.setItem('diary-entries', JSON.stringify([
+        {mood: "good", date: '01-01-2020'},
+        {mood: "bad", date: '02-01-2020'},
+        {mood: "neutral", date: '03-01-2020'},
+        {mood: "good", date: '04-01-2020'},
+    ]));
+    initGraph();
+        // initHome();
+    //    } else {
+    //   initProfile("My name");
+    //    initWelcomePage();
+    //}
+    //
 
     document.querySelector(".logout-wrapper").addEventListener("click", () => {
         cleanLocalStorage();

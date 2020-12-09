@@ -5,6 +5,8 @@
 
     display: flex;
     flex-direction: column;
+
+    /* align-items: center; */
 }
 
 .hi-block {
@@ -75,4 +77,9 @@
     bottom: 5px;
     right: 5px;
     height: 60%;
+}
+
+.graph-holder {
+    margin-top: 40px;
+    margin-right: 10%;
 }
