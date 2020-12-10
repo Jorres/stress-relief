@@ -1,7 +1,7 @@
 
 <h1 align="center">
   <br>
-  <img src="https://i.imgur.com/xwHr8mK.png" alt="Landing page">
+  <img src="https://i.imgur.com/CjT1sHK.png" alt="Landing page">
 </h1>
 
 <div align="center">
@@ -12,10 +12,10 @@
 
 > One in Four Older Adults Report Anxiety or Depression Amid the COVID-19 Pandemic [Source](https://www.kff.org/medicare/issue-brief/one-in-four-older-adults-report-anxiety-or-depression-amid-the-covid-19-pandemic/)
 
-[Project Name] is our way of addressing that. Imagine a mood tracker, anxiety helper, and mood-boosting journal, all rolled into one.
+MeSelf.care is our way of addressing that. Imagine a mood tracker, anxiety helper, and mood-boosting journal, all rolled into one.
 
 ## 💗 Try Now
-Head over to [[link here]] and make your happiness
+Head over to [meself.care](http://meself.care) and make your happiness
 
 ## ✨ Demo
 
@@ -25,12 +25,16 @@ Head over to [[link here]] and make your happiness
 
 ## ✔️ Features
 
-### 💡 Manage Your Tasks
-
-### 📈 Health Tracking
-
+### 💡 Uplifting notes and motivation
+<img src="https://i.imgur.com/yP0xvad.jpg" alt="Dashboard">
+### 📈 Mood Tracking
+<img src="https://imgur.com/cDTNLMi" alt="">
+### 🌞 Write your daily thoughts
+<img src="https://i.imgur.com/mM44b9Q.jpg" alt="Write down your thoughts and feelings each day">
 ### ☁️ Word Clouds
+<img src="https://i.imgur.com/e6Frgfo.jpg" alt="Word clouds based on ">
 
+<img src="" alt="">
 ### ➕...More in construction
 
 
