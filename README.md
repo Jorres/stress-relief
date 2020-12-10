@@ -23,11 +23,13 @@ Head over to [meself.care](http://meself.care) and make your happiness
 
 ## ✔️ Features
 
+<div align="center">
+
 ### 💡 Uplifting notes and motivation
 <img src="https://i.imgur.com/yP0xvad.jpg" alt="Dashboard" width="50%" text-align="center">
 
 ### 📈 Mood Tracking
-<img src="https://imgur.com/cDTNLMi" alt="Mood Tracking" width="50%" text-align="center">
+<img src="https://i.imgur.com/FSf9B2h.jpg" alt="Mood Tracking" width="50%" text-align="center">
 
 ### 🌞 Write your daily thoughts
 <img src="https://i.imgur.com/mM44b9Q.jpg" alt="Write down your thoughts and feelings each day" width="50%" text-align="center">
@@ -38,6 +40,7 @@ Head over to [meself.care](http://meself.care) and make your happiness
 
 ### ➕...More in construction
 
+</div>
 
 
 ### 🚀 Usage
