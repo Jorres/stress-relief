@@ -19,8 +19,12 @@
     flex-direction: column;
     justify-content: center;
 
-    flex-grow: 0.3;
-    width: 80%; 
+    margin: 50px 0px;
+    width: 90%;
+
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #a5d1e7;
 }
 
 .profile__username {
@@ -28,7 +32,7 @@
 }
 
 .profile__avatar-picture {
-    width: 100%;
+    width: 110%;
 }
 
 .profile__add-mood {

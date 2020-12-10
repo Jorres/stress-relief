@@ -32,8 +32,11 @@ body {
 }
 
 .slight-header {
-    font-weight: bold;
     font-size: 1.4rem;
+}
+
+.big-header {
+    font-size: 1.7rem; 
 }
 
 .gray-text {
@@ -77,6 +80,7 @@ body {
 
 .logout-wrapper {
     padding: 5px;
+    padding-left: 11%;
     width: 50%;
     margin-bottom: 20px;
     transition: 0.2s linear 0s;

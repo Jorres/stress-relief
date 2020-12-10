@@ -18,6 +18,11 @@
     justify-content: space-around;
 }
 
+.tall-modal {
+    height: 90%;
+    top: 5%;
+}
+
 .modal-shadow {
     position: absolute;
     background-color: gray;

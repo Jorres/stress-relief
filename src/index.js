@@ -1,3 +1,5 @@
+const DEBUG = false;
+
 const clearContent = () => {
     const content = select(".content"); 
     content.innerHTML = "";
@@ -36,7 +38,7 @@ const renderTasks = (taskHolder) => {
 const initHome = () => {
     const content = clearContent();
     appendElem(content, "p", ['slight-header'], "Dashboard");
-    appendElem(content, "p", [], "Tuesday 08 December 2020");
+    appendElem(content, "p", [], formatDate());
     const hiBlock = appendElem(content, "div", ["hi-block"]);
     appendElem(hiBlock, "p", ["slight-header"], "Hi, " + localStorage.getItem("userName"));
     appendElem(hiBlock, "p", ["gray-text"], "Don't worry, you'll get through it!");
@@ -91,7 +93,6 @@ const initGraph = () => {
         yaxis: {
             labels: {
                 formatter: function (value) {
-                    console.log(value);
                     if (cmp(value, 3)) {
                         return "good  ";
                     }
@@ -146,8 +147,6 @@ const initGraph = () => {
     const chart = new ApexCharts(graphHolder, graphData);
 
     chart.render();
-
-    console.log(diaryEntries);
 };
 
 const initWordCloud = () => {
@@ -170,8 +169,45 @@ const initWordCloud = () => {
         });
 };
 
+const initArticle = (article) => {
+    showModalWindow();
+    const modalWindow = refresh(".modal-window");
+    modalWindow.classList.add('tall-modal');
+    const crossWrapper = appendElem(modalWindow, "div", ['article-cross-wrapper']);
+    const crossImg = appendElem(crossWrapper, "img", ['article-cross-img']);
+    crossImg.src = "./img/cross.webp";
+    crossImg.addEventListener("click", () => {
+        modalWindow.classList.remove('tall-modal');
+        hideModalWindow();  
+    });
+
+    const articleWrapper = appendElem(modalWindow, "div", ['article-text-wrapper']);
+
+    appendElem(articleWrapper, "p", ['big-header'], article.name);
+    article.content.forEach(piece => {
+        appendElem(articleWrapper, "p", ['slight-header'], piece.header);
+        piece.text.split("\n").forEach((thispiece) => {
+            appendElem(articleWrapper, "p", [], thispiece);
+        })
+    })
+};
+
 const initTest = () => {
     const content = clearContent();
+    appendElem(content, "p", ['big-header'], "Mental diseases");
+    appendElem(content, "p", ['gray-text'], "If you notice some of the following symptoms,");
+    appendElem(content, "p", ['gray-text'], "you should probably go see a doctor.");
+    const articleWrapper = appendElem(content, "div", ['article-wrapper']);
+    const articles = getArticles();
+    articles.forEach(article => {
+        const articleBlock = appendElem(articleWrapper, "div", ['article']); 
+        const apiw = appendElem(articleBlock, "div", ['article-preview-image-wrapper']);
+        const api = appendElem(apiw, "img", ['article-preview-image']);
+        api.src = "./img/articles/" + article.picname + ".jpg";
+        appendElem(articleBlock, "p", ['article-header'], article.artname);
+
+        articleBlock.addEventListener("click", () => initArticle(article));
+    });
 };
 
 const initAbout = () => {
@@ -184,7 +220,12 @@ const initAbout = () => {
          their mental health.",
         "This is why we created Mental Health - a lightweight and efficient mood \
          tracker, advisor and general motivation keeper for you to get through the \
-         pandemic."
+         pandemic.",
+        "",
+        "Contributors:",
+        "Ania Tselikova",
+        "Arlyn Miles",
+        "Egor Tarasov"
     ]
 
     appendElem(content, "p", ['slight-header'], 
@@ -197,14 +238,22 @@ const initAbout = () => {
 
 const initNavigation = () => {
     const buttons = ['home', 'graph', 'word-cloud', 'test', 'about'];
-    const buttonTexts = ['Home', 'Graph', 'Word Cloud', 'Test', 'About'];
     const initers = [initHome, initGraph, initWordCloud, initTest, initAbout];
     const buttonsContainer = select(".nav-buttons-container");    
 
     buttons.forEach((button, i) => {
-        let curButton = createElem("div", ['nav-button', button], buttonTexts[i]);
-        curButton.addEventListener("click", initers[i]);
-        buttonsContainer.appendChild(curButton);
+        // let curButton = appendElem(buttonsContainer, "div", ['nav-button', button]);
+        let curButton = appendElem(buttonsContainer, "div", ['nav-button', button]);
+        let navIcon = appendElem(curButton, "img", ['nav-icon']);
+        navIcon.src = "./img/nav-icons/" + button + ".png";
+        curButton.addEventListener("click", () => {
+            const prev = select(".cur-section");
+            if (prev) {
+                prev.classList.remove("cur-section");
+            }
+            curButton.classList.add("cur-section");
+            initers[i]();
+        });
     });
 };
 
@@ -278,7 +327,7 @@ const initModalWindow = () => {
 const initProfile = (username) => {
     let userGender = localStorage.getItem("userGender");
     if (!userGender) {
-        userGender = "man";
+        userGender = "octo_shifted";
     }
 
     const profile = select(".profile");
@@ -292,7 +341,7 @@ const initProfile = (username) => {
     profile.appendChild(pictureWrapper);
     appendElem(profile, "p", ['profile__username'], username);
 
-    if (username !== "My name") {
+    if (username !== "Who are you?") {
         const addMoodForm = appendElem(profile, "div", ['profile__add-mood']);
         appendElem(addMoodForm, "p", ['slight-header'], "Add note");
         const addMoodImage = appendElem(addMoodForm, "img", ['profile__add-mood-image']);
@@ -309,6 +358,7 @@ const register = (name, age) => {
     localStorage.setItem("userName", name);
     localStorage.setItem("userAge", age);
     localStorage.setItem("userGender", select(".radio-gender:checked").value);
+    select(".content").classList.remove("center-mode");
     initNavigation();
     initHome();
     initProfile(name);
@@ -316,6 +366,7 @@ const register = (name, age) => {
 
 const initWelcomePage = () => {
     const content = select('.content'); 
+    content.classList.add("center-mode");
     content.innerHTML = "";
     const buttonsContainer = select(".nav-buttons-container");    
     buttonsContainer.innerHTML = "";
@@ -323,14 +374,17 @@ const initWelcomePage = () => {
     // const bannerWrapper = appendElem(content, "div", ['welcome-banner-wrapper']);
     // const banner = appendElem(bannerWrapper, "img", ['welcome-banner']);
     // banner.src = "img/pinegirl.png";
+    //
+    const regWrapper = appendElem(content, "div", ['registration-wrapper']);
 
-    appendElem(content, "p", ['slight-header'], "Greetings! Please, introduce yourself");
-    appendElem(content, "p", [], "What is your name?");
-    const nameInput = appendElem(content, "input", ['input-general'], "");
-    appendElem(content, "p", [], "How old are you, dear?");
-    const ageInput = appendElem(content, "input", ['input-general'], "");
+    appendElem(regWrapper, "p", ['slight-header', 'big-header'], "Greetings! Please, introduce yourself");
+    appendElem(regWrapper, "p", [], "What is your name?");
+    const nameInput = appendElem(regWrapper, "input", ['input-general'], "");
+    appendElem(regWrapper, "p", [], "How old are you, dear?");
+    const ageInput = appendElem(regWrapper, "input", ['input-general'], "");
+    ageInput.type = "number";
 
-    const radioWrapper = appendElem(content, "div", ['gender-wrapper']);
+    const radioWrapper = appendElem(regWrapper, "div", ['gender-wrapper']);
     ['man', 'woman'].forEach(gender => {
         const label = appendElem(radioWrapper, "label", ['container'], gender);
         const input = appendElem(label, "input", ["radio-gender"]);
@@ -340,7 +394,7 @@ const initWelcomePage = () => {
         appendElem(label, "span", ["checkmark"]);
     });
 
-    const registerButton = appendElem(content, "div", ['action-button'], "Let's get going!");
+    const registerButton = appendElem(regWrapper, "div", ['action-button'], "Let's get going!");
     registerButton.addEventListener("click", () => {
         register(nameInput.value, ageInput.value);
     });
@@ -352,6 +406,16 @@ const cleanLocalStorage = () => {
         localStorage.setItem(propertyName, "");  
     });
     localStorage.setItem("diary-entries", "[]"); 
+};
+
+const testEntry = () => {
+    localStorage.setItem('diary-entries', JSON.stringify([
+        {mood: "good", date: '01-01-2020'},
+        {mood: "bad", date: '02-01-2020'},
+        {mood: "neutral", date: '03-01-2020'},
+        {mood: "good", date: '04-01-2020'},
+    ]));
+    initHome();
 };
 
 const init = () => {
@@ -366,28 +430,24 @@ const init = () => {
     cleanLocalStorage();
     localStorage.setItem("quotes", JSON.stringify(quotes));
 
-    let userName = localStorage.getItem('userName');
-    // if (userName) {
-        initNavigation();
-        initProfile("1");
-    localStorage.setItem('diary-entries', JSON.stringify([
-        {mood: "good", date: '01-01-2020'},
-        {mood: "bad", date: '02-01-2020'},
-        {mood: "neutral", date: '03-01-2020'},
-        {mood: "good", date: '04-01-2020'},
-    ]));
-    initGraph();
-        // initHome();
-    //    } else {
-    //   initProfile("My name");
-    //    initWelcomePage();
-    //}
-    //
-
+    if (DEBUG) {
+        testEntry(); 
+    } else {
+        let userName = localStorage.getItem('userName');
+        if (userName) {
+            initNavigation();
+            initProfile(userName);
+            initHome();
+            select(".home").classList.add("cur-section");
+        } else {
+            initProfile("Who are you?");
+            initWelcomePage();
+        }
+    }
     document.querySelector(".logout-wrapper").addEventListener("click", () => {
         cleanLocalStorage();
         localStorage.setItem("quotes", JSON.stringify(quotes));
-        initProfile("My name");
+        initProfile("Who are you?");
         initWelcomePage();
     });
 };
