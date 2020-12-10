@@ -27,18 +27,22 @@ Head over to [meself.care](http://meself.care) and find your hope
 
 ### 💡 Uplifting notes and motivation
 <img src="https://i.imgur.com/yP0xvad.jpg" alt="Dashboard" width="50%" text-align="center">
+
 View our inspirational messages to keep your spirits up, and add your own at any time
 
 ### 🌞 Write your daily thoughts
 <img src="https://i.imgur.com/mM44b9Q.jpg" alt="Write down your thoughts and feelings each day" width="50%" text-align="center">
+
 Each day take the time to write down what's on your mind in a safe environment
 
 ### 📈 Mood Tracking
 <img src="https://i.imgur.com/FSf9B2h.jpg" alt="Mood Tracking" width="50%" text-align="center">
+
 Track your emotions over time to discover trends in your mental health and become aware in your own mind
 
 ### ☁️ Word Clouds
 <img src="https://i.imgur.com/e6Frgfo.jpg" alt="Auto generated Word Clouds" width="50%" text-align="center">
+
 Automatically generate a cloud of your most common thoughts and feelings to get a better understanding of yourself
 
 </div>
