@@ -45,8 +45,10 @@ Head over to [meself.care](http://meself.care) and make your happiness
 
 ### 🚀 Usage
 
-```How to run the code```
-
+```Navigate to http://meself.care ```
+**OR**
+```Clone the repository ```
+```Open index.html in your browser ```
 
 ## 🙌 Credits
 
