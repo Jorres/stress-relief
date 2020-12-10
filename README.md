@@ -18,23 +18,24 @@ MeSelf.care is our way of addressing that. Imagine a mood tracker, anxiety helpe
 Head over to [meself.care](http://meself.care) and make your happiness
 
 ## ✨ Demo
-
-[[GIF of usage here]]
-<img src="https://i.imgur.com/WKj8d92.png" alt="Dashboard">
+<img src="https://i.imgur.com/4tu3Vuk.gif" alt="Demo">
 
 
 ## ✔️ Features
 
 ### 💡 Uplifting notes and motivation
-<img src="https://i.imgur.com/yP0xvad.jpg" alt="Dashboard">
-### 📈 Mood Tracking
-<img src="https://imgur.com/cDTNLMi" alt="">
-### 🌞 Write your daily thoughts
-<img src="https://i.imgur.com/mM44b9Q.jpg" alt="Write down your thoughts and feelings each day">
-### ☁️ Word Clouds
-<img src="https://i.imgur.com/e6Frgfo.jpg" alt="Word clouds based on ">
+<img src="https://i.imgur.com/yP0xvad.jpg" alt="Dashboard" width="50%" text-align="center">
 
-<img src="" alt="">
+### 📈 Mood Tracking
+<img src="https://imgur.com/cDTNLMi" alt="Mood Tracking" width="50%" text-align="center">
+
+### 🌞 Write your daily thoughts
+<img src="https://i.imgur.com/mM44b9Q.jpg" alt="Write down your thoughts and feelings each day" width="50%" text-align="center">
+
+### ☁️ Word Clouds
+<img src="https://i.imgur.com/e6Frgfo.jpg" alt="Auto generated Word Clouds" width="50%" text-align="center">
+
+
 ### ➕...More in construction
 
 
