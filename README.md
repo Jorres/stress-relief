@@ -45,6 +45,11 @@ Track your emotions over time to discover trends in your mental health and becom
 
 Automatically generate a cloud of your most common thoughts and feelings to get a better understanding of yourself
 
+### 💪 Health Awareness
+<img src="https://i.imgur.com/LTygq6I.jpg" alt="Auto generated Word Clouds" width="50%" text-align="center">
+
+Find out more about common conditions that can affect your mental health
+
 </div>
 
 ### 🚀 Usage
